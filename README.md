@@ -18,9 +18,7 @@ init databasee:
 `docker compose exec php bin/console doctrine:database:create`
 `docker compose exec php bin/console doctrine:schema:create`
 
-Ready to Go http://localhost:2525
-
-Backend : http://localhost:9702/api
+Ready to Go http://localhost:2525/api
 
 Add to your /etc/hosts (optional)
 
@@ -31,5 +29,5 @@ Access to container bash:
 
 
 ##PhpMyAdmin:
-
+Auths : root:my_secret_password
 http://localhost:9702
