@@ -19,6 +19,12 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
+    Psr\Http\Client\ClientInterface:
+        class: GuzzleHttp\Client
+        arguments:
+            - base_uri: 'https://api.themoviedb.org/3/'
+              headers:
+                  accept: 'application/json'
+                  Authorization: 'Bearer  %env(MOVIES_API_TOKEN)%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

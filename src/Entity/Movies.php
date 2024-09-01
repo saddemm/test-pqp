@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MoviesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: MoviesRepository::class)]
 #[ApiResource]
@@ -15,53 +16,66 @@ class Movies
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    #[SerializedName('backdrop_path')]
     #[ORM\Column(length: 255)]
     private ?string $backdropPath = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[SerializedName('original_title')]
     #[ORM\Column(length: 255)]
     private ?string $originalTitle = null;
 
 
-    #[ORM\Column(length: 255)]
+    #[SerializedName('original_name')]
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $originalName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $overview = null;
+
+    #[SerializedName('poster_path')]
 
     #[ORM\Column(length: 255)]
     private ?string $posterPath = null;
 
+    #[SerializedName('media_type')]
     #[ORM\Column(length: 255)]
     private ?string $mediaType = null;
 
     #[ORM\Column]
     private ?bool $adult = null;
 
+    #[SerializedName('original_language')]
+
     #[ORM\Column(length: 255)]
     private ?string $originalLanguage = null;
 
     #[ORM\Column]
-    private ?int $popularity = null;
+    private ?float $popularity = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[SerializedName('first_air_date')]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $firstAirDate = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 2, scale: 0)]
-    private ?string $voteAverage = null;
+    #[SerializedName('vote_average')]
+    #[ORM\Column]
+    private ?float $voteAverage = null;
+    #[SerializedName('vote_count')]
 
     #[ORM\Column]
     private ?int $voteCount = null;
+    #[SerializedName('origin_country')]
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $originCountry = null;
+    #[SerializedName('release_date')]
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $releaseDate = null;
@@ -218,12 +232,12 @@ class Movies
         return $this;
     }
 
-    public function getVoteAverage(): ?string
+    public function getVoteAverage(): ?float
     {
         return $this->voteAverage;
     }
 
-    public function setVoteAverage(string $voteAverage): static
+    public function setVoteAverage(float $voteAverage): static
     {
         $this->voteAverage = $voteAverage;
 
