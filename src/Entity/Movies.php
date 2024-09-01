@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MoviesRepository;
 use Doctrine\DBAL\Types\Types;
@@ -10,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: MoviesRepository::class)]
 #[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['title' => 'partial'])]
 class Movies
 {
     #[ORM\Id]
