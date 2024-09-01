@@ -7,14 +7,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Psr\Http\Client\ClientInterface; // Utiliser ClientInterface au lieu de GuzzleHttp\Client
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 #[AsCommand(
     name: 'app:movies',
@@ -52,7 +49,7 @@ class MoviesCommand extends Command
             // Décoder la réponse JSON
             $data = json_decode($response->getBody()->getContents(), true);
 
-            // Initialize the progress bar
+            // Initializer la bar de progression
             $progressBar = new ProgressBar($output, count($data['results']));
             $progressBar->start();
 
@@ -66,10 +63,10 @@ class MoviesCommand extends Command
                 $movie = $this->serializer->deserialize(json_encode($movieData), Movies::class, 'json');
 
 
-                // Output the deserialized movie object
+                // Afficher les titre au moment de l'appel api
                 $io->info($movie->getOriginalTitle());
 
-                // Persist the movie entity
+                // persist db
                 $this->entityManager->persist($movie);
                 $progressBar->advance();
             }
@@ -77,7 +74,7 @@ class MoviesCommand extends Command
             // Exécuter la transaction pour enregistrer les films dans la base de données
             $this->entityManager->flush();
 
-            // Finish the progress bar
+            // fin de la progress bar
             $progressBar->finish();
 
 
