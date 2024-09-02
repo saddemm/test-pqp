@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: MoviesRepository::class)]
-#[ApiResource]
+#[ApiResource(paginationItemsPerPage:8,paginationClientEnabled: true)]
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial'])]
 class Movies
 {
