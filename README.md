@@ -18,14 +18,14 @@ init databasee:
 `docker compose exec php bin/console doctrine:database:create`
 `docker compose exec php bin/console doctrine:schema:create`
 
-Ready to Go http://localhost:2525/api
+Get movies from api to local database:
+`docker compose exec php bin/console app:movies`
 
-Add to your /etc/hosts (optional)
+Ready to Go http://localhost:2525/api/docs
 
-`127.0.0.1       pqp.dev.io` and now you can access with http://pqp.dev.io
 
 Access to container bash:
-`docker-compose exec php bash`
+`docker compose exec php bash`
 
 
 ##PhpMyAdmin:
